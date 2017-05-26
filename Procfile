@@ -1,1 +1,1 @@
-web: history-server dist
+web: yarn run server
