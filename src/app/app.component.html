@@ -1,0 +1,19 @@
+<h1> This is a sample material form, man! </h1>
+<app-foo></app-foo>
+<form #heroForm="ngForm" (ngSubmit)="onSubmit()">
+  <md-input-container>
+    <input mdInput placeholder="Name" [(ngModel)]="model.name" name="name">
+  </md-input-container>
+  <br/>
+  <md-input-container>
+    <input mdInput placeholder="Alter Ego" [(ngModel)]="model.alterEgo" name="alterEgo">
+  </md-input-container>
+  <br/>
+  <md-select placeholder="Hero Power" [(ngModel)]="model.power" name="power">
+    <md-option *ngFor="let pow of powers" [value]="pow">
+      {{ pow }}
+    </md-option>
+  </md-select>
+  <br/>
+  <button md-button type="submit" class="btn btn-success">Submit</button>
+</form>

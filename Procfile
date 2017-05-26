@@ -1,0 +1,1 @@
+web: history-server dist
