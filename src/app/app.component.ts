@@ -1,5 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+const PostsQuery = gql`
+  query PostsQuery {
+    allPosts(orderBy: createdAt_DESC)
+    {
+      id,
+      name,
+      message
+    }
+  }
+`;
+
+const AddPostMutation = gql`
+  mutation AddPostMutation($name: String!, $message: String!) {
+    createPost(
+      name: $name,
+      message: $message
+    ) {
+      id
+    }
+  }
+`;
+
+interface Post {
+  message: string;
+  name: string;
+}
+
+interface PostsQueryResult {
+  allPosts: Array<Post>;
+}
 
 @Component({
   selector: 'app-root',
@@ -9,6 +42,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 export class AppComponent implements OnInit {
   heroForm: FormGroup;
   messages = [];
+  postQueryHandler: any;
   validationMessages = {
     'name': {
       'required': 'Name is required.',
@@ -23,15 +57,41 @@ export class AppComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder) { // <--- inject FormBuilder
+  constructor(private fb: FormBuilder, private apollo: Apollo) {
     this.createForm();
   }
 
   ngOnInit() {
+    this.initializePosts();
+  }
+
+  initializePosts() {
+    console.log('will reload posts!');
+    this.postQueryHandler = this.apollo.watchQuery<PostsQueryResult>({
+      query: PostsQuery
+    });
+
+    this.postQueryHandler.subscribe(({ data }) => {
+      this.messages = data.allPosts;
+    });
   }
 
   onSubmit({ value, valid }): void {
-    this.messages.push(value);
+    // this.messages.push(value);
+    this.apollo.mutate({
+      mutation: AddPostMutation,
+      variables: {
+        name: value.name,
+        message: value.message
+      }
+    }).subscribe(({ data }) => {
+      console.log('got data', data);
+      console.log(this.postQueryHandler);
+      this.postQueryHandler.refetch();
+      this.heroForm.patchValue({ name: '', message: '' });
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    });
   }
 
   onPatch() {
