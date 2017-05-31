@@ -1,6 +1,6 @@
 <h1> Shoutboard </h1>
 <h2> Post a new message </h2>
-<form [formGroup]="heroForm" (ngSubmit)="onSubmit(heroForm)" novalidate>
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit(heroForm)" #f="ngForm" novalidate>
   <md-input-container>
     <input mdInput placeholder="Name" formControlName="name">
     <md-error>{{validationErrors['name']}}</md-error>
@@ -17,7 +17,7 @@
   <br>
   <br>
 </form>
-
+<button md-button (click)="onReset()" >Reset</button>
 <md-card *ngFor="let msg of messages">
   <md-card-title>{{msg.name}}</md-card-title>
   <md-card-content>

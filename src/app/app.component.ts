@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 const PostsQuery = gql`
   query PostsQuery {
-    allPosts(orderBy: createdAt_DESC)
+    allPosts(orderBy: createdAt_DESC, first: 5)
     {
       id,
       name,
@@ -57,6 +57,8 @@ export class AppComponent implements OnInit {
 
   };
 
+  @ViewChild('f') heroFormTag;
+
   constructor(private fb: FormBuilder, private apollo: Apollo) {
     this.createForm();
   }
@@ -66,7 +68,6 @@ export class AppComponent implements OnInit {
   }
 
   initializePosts() {
-    console.log('will reload posts!');
     this.postQueryHandler = this.apollo.watchQuery<PostsQueryResult>({
       query: PostsQuery
     });
@@ -76,8 +77,11 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onReset() {
+    this.heroFormTag.resetForm();
+  }
+
   onSubmit({ value, valid }): void {
-    // this.messages.push(value);
     this.apollo.mutate({
       mutation: AddPostMutation,
       variables: {
@@ -85,10 +89,8 @@ export class AppComponent implements OnInit {
         message: value.message
       }
     }).subscribe(({ data }) => {
-      console.log('got data', data);
-      console.log(this.postQueryHandler);
       this.postQueryHandler.refetch();
-      this.heroForm.patchValue({ name: '', message: '' });
+      this.heroFormTag.resetForm();
     }, (error) => {
       console.log('there was an error sending the query', error);
     });
