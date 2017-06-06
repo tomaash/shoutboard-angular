@@ -1,0 +1,20 @@
+<h2> Create a new post </h2>
+<h3> You are now posting as {{appService.username}} </h3>
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit(heroForm)" novalidate>
+  <md-input-container>
+    <input mdInput placeholder="Title" formControlName="title">
+    <md-error>{{validationErrors['title']}}</md-error>
+  </md-input-container>
+  <br>
+  <br>
+  <md-input-container>
+    <textarea mdInput placeholder="Message" formControlName="message"></textarea>
+    <md-error>{{validationErrors['message']}}</md-error>
+  </md-input-container>
+  <br>
+  <br>
+  <button md-raised-button (click)="onCancel()" color="warn">Cancel</button>
+  <button md-raised-button type="submit" color="primary">Submit</button>
+  <br>
+  <br>
+</form>

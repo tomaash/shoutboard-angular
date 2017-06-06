@@ -1,0 +1,11 @@
+<button md-fab (click)="onAddClick()" class="float-right"><md-icon>add</md-icon></button>
+<h3>Hello {{appService.username}}</h3>
+<md-card *ngFor="let msg of postsService.messages">
+  <md-card-title>{{msg.title}}</md-card-title>
+  <md-card-subtitle>{{msg.name}}</md-card-subtitle>
+  <md-card-content>
+    <p>
+      {{msg.message}}
+    </p>
+  </md-card-content>
+</md-card>

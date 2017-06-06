@@ -1,28 +1,6 @@
-<h1> Shoutboard </h1>
-<h2> Post a new message </h2>
-<form [formGroup]="heroForm" (ngSubmit)="onSubmit(heroForm)" #f="ngForm" novalidate>
-  <md-input-container>
-    <input mdInput placeholder="Name" formControlName="name">
-    <md-error>{{validationErrors['name']}}</md-error>
-  </md-input-container>
-  <br>
-  <br>
-  <md-input-container>
-    <textarea mdInput placeholder="Message" formControlName="message"></textarea>
-    <md-error>{{validationErrors['message']}}</md-error>
-  </md-input-container>
-  <br>
-  <br>
-  <button md-button type="submit" class="btn btn-success">Submit</button>
-  <br>
-  <br>
-</form>
-<button md-button (click)="onReset()" >Reset</button>
-<md-card *ngFor="let msg of messages">
-  <md-card-title>{{msg.name}}</md-card-title>
-  <md-card-content>
-    <p>
-      {{msg.message}}
-    </p>
-  </md-card-content>
-</md-card>
+<h1> Shoutboard Application </h1>
+<nav>
+  <a routerLink="/home" routerLinkActive="active">Home</a>
+  <a routerLink="/posts" routerLinkActive="active">Posts</a>
+</nav>
+<router-outlet></router-outlet>

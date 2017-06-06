@@ -1,0 +1,9 @@
+<div>
+  <h3>Dashboard</h3>
+  <md-input-container>
+    <textarea mdInput placeholder='Edit your name' [(ngModel)]='appService.username'></textarea>
+  </md-input-container>
+  <br/>
+  <span>Clicks since last visit: {{homeService.counter}}</span>
+  <button (click)='homeService.increment()'>Click!</button>
+</div>
