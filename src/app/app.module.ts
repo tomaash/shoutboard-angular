@@ -10,11 +10,25 @@ import { FooComponent } from './components/foo.component';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
 
-const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: 'https://api.graph.cool/simple/v1/cj3bf7docbo5w0147sj4e66ik'
-  }),
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/cj3bf7docbo5w0147sj4e66ik'
 });
+
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};
+    }
+
+    // get the authentication token from local storage if it exists
+    if (localStorage.getItem('accessToken')) {
+      req.options.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+    }
+    next();
+  },
+}]);
+
+const client = new ApolloClient({ networkInterface });
 
 export function provideClient(): ApolloClient {
   return client;

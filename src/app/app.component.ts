@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
+import Auth0Lock from 'auth0-lock';
 import gql from 'graphql-tag';
 
 const PostsQuery = gql`
@@ -41,6 +42,7 @@ interface PostsQueryResult {
 })
 export class AppComponent implements OnInit {
   heroForm: FormGroup;
+  lock: any;
   messages = [];
   postQueryHandler: any;
   validationMessages = {
@@ -61,6 +63,7 @@ export class AppComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apollo: Apollo) {
     this.createForm();
+    this.initializeLock();
   }
 
   ngOnInit() {
@@ -77,8 +80,34 @@ export class AppComponent implements OnInit {
     });
   }
 
+  initializeLock() {
+    this.lock = new Auth0Lock(
+      'RuvQEGEPQaiBzRczgaSQsCb4D0ZbeC1r',
+      'tomaash.eu.auth0.com'
+    );
+    // Listening for the authenticated event
+    this.lock.on('authenticated', (authResult) => {
+      console.log(authResult)
+      // Use the token in authResult to getUserInfo() and save it to localStorage
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+        if (error) {
+          console.log(error);
+          // Handle error
+          return;
+        }
+
+        localStorage.setItem('accessToken', authResult.accessToken);
+        localStorage.setItem('profile', JSON.stringify(profile));
+      });
+    });
+  }
+
   onReset() {
     this.heroFormTag.resetForm();
+  }
+
+  onLoginClick(): void {
+    this.lock.show();
   }
 
   onSubmit({ value, valid }): void {
