@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PostsService } from './posts.service';
-import { AppService } from '../app.service';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { PostsService } from './posts.service'
+import { AppService } from '../app.service'
 
 @Component({
   selector: 'app-posts',
@@ -20,11 +20,11 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.postsService.initializePosts();
+    this.postsService.initializePosts()
   }
 
   onAddClick() {
-    this.router.navigate(['/form']);
+    this.router.navigate(['/form'])
   }
 
 }

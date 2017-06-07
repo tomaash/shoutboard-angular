@@ -1,10 +1,10 @@
-import { AppService } from '../app.service';
-import { Injectable } from '@angular/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { AppService } from '../app.service'
+import { Injectable } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Apollo } from 'apollo-angular'
+import gql from 'graphql-tag'
 
 const AddPostMutation = gql`
   mutation AddPostMutation($name: String!, $title: String!, $message: String!) {
@@ -16,7 +16,7 @@ const AddPostMutation = gql`
       id
     }
   }
-`;
+`
 
 @Injectable()
 export class FormService {
@@ -35,10 +35,10 @@ export class FormService {
         message: value.message
       }
     }).subscribe(({ data }) => {
-      this.router.navigate(['/posts']);
+      this.router.navigate(['/posts'])
     }, (error) => {
-      console.log('there was an error sending the query', error);
-    });
+      console.log('there was an error sending the query', error)
+    })
   }
 
 }

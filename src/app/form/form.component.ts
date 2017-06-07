@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FormService } from './form.service';
-import { AppService } from '../app.service';
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormService } from './form.service'
+import { AppService } from '../app.service'
 
 @Component({
   selector: 'app-form',
@@ -12,7 +12,7 @@ import { AppService } from '../app.service';
   ]
 })
 export class FormComponent {
-  heroForm: FormGroup;
+  heroForm: FormGroup
   validationMessages = {
     'title': {
       'required': 'Title is required.',
@@ -24,7 +24,7 @@ export class FormComponent {
       'minlength': 'Message is too short, minimum is 50 characters',
       'maxlength': 'Message is too long, maximum is 1000 characters'
     }
-  };
+  }
 
   constructor(
     private router: Router,
@@ -32,22 +32,22 @@ export class FormComponent {
     public appService: AppService,
     private fb: FormBuilder,
   ) {
-    this.createForm();
+    this.createForm()
   }
 
   get validationErrors() {
-    const errors = {};
+    const errors = {}
     Object.keys(this.heroForm.controls).forEach(key => {
-      errors[key] = '';
-      const control = this.heroForm.controls[key];
+      errors[key] = ''
+      const control = this.heroForm.controls[key]
       if (control && !control.valid) {
-        const messages = this.validationMessages[key];
+        const messages = this.validationMessages[key]
         Object.keys(control.errors).forEach(error => {
-          errors[key] += messages[error] + ' ';
-        });
+          errors[key] += messages[error] + ' '
+        })
       }
-    });
-    return errors;
+    })
+    return errors
   }
 
   createForm() {
@@ -62,15 +62,15 @@ export class FormComponent {
         Validators.minLength(50),
         Validators.maxLength(1000)]
       ],
-    });
+    })
   }
 
   onSubmit({ value, valid }) {
-    this.formService.addPost(value);
+    this.formService.addPost(value)
   }
 
   onCancel() {
-    this.router.navigate(['/posts']);
+    this.router.navigate(['/posts'])
   }
 }
 

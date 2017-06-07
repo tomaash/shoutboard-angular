@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { HomeService } from './home.service';
-import { AppService } from '../app.service';
+import { Component } from '@angular/core'
+import { HomeService } from './home.service'
+import { AppService } from '../app.service'
 
 @Component({
   selector: 'app-home',
