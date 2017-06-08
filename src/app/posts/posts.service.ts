@@ -27,7 +27,7 @@ interface PostsQueryResult {
 
 @Injectable()
 export class PostsService {
-  messages = []
+  posts = []
   private postQueryHandler: any
 
   constructor(private apollo: Apollo) { }
@@ -39,7 +39,7 @@ export class PostsService {
     })
 
     this.postQueryHandler.subscribe(({ data }) => {
-      this.messages = data.allPosts
+      this.posts = data.allPosts
     })
   }
 
