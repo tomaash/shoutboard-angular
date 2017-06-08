@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class GrapangularPage {
+export class ShoutboardAngularPage {
   navigateTo() {
     return browser.get('/');
   }

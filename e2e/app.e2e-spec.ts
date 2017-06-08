@@ -1,10 +1,10 @@
-import { GrapangularPage } from './app.po';
+import { ShoutboardAngularPage } from './app.po';
 
-describe('grapangular App', () => {
-  let page: GrapangularPage;
+describe('ShoutboardAngular App', () => {
+  let page: ShoutboardAngularPage;
 
   beforeEach(() => {
-    page = new GrapangularPage();
+    page = new ShoutboardAngularPage();
   });
 
   it('should display message saying app works', () => {
