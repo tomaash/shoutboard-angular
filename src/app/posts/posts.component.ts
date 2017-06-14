@@ -15,8 +15,7 @@ import { AppService } from '../app.service'
 export class PostsComponent implements OnInit {
   constructor(
     public postsService: PostsService,
-    public appService: AppService,
-    private router: Router,
+    public appService: AppService
   ) { }
 
   ngOnInit() {
