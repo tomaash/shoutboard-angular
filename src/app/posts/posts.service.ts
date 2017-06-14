@@ -28,24 +28,16 @@ interface PostsQueryResult {
 @Injectable()
 export class PostsService {
   posts = []
-  private postQueryHandler: any
 
   constructor(private apollo: Apollo) { }
 
   initializePosts() {
-    this.postQueryHandler = this.apollo.watchQuery<PostsQueryResult>({
+    this.apollo.query<PostsQueryResult>({
       query: PostsQuery,
       fetchPolicy: 'network-only'
-    })
-
-    this.postQueryHandler.subscribe(({ data }) => {
+    }).subscribe(({ data }) => {
       this.posts = data.allPosts
     })
   }
-
-  refetchPosts() {
-    this.postQueryHandler.refetch()
-  }
-
 }
 
