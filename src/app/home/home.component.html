@@ -4,6 +4,6 @@
     <input mdInput placeholder='Edit your name' [(ngModel)]='appService.username' />
   </md-input-container>
   <br/>
-  <span>Clicks since last visit: {{homeService.counter}}</span>
+  <span>{{homeService.counterMessage | async}}</span>
   <button (click)='homeService.increment()'>Click!</button>
 </div>
