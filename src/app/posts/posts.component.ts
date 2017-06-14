@@ -22,9 +22,4 @@ export class PostsComponent implements OnInit {
   ngOnInit() {
     this.postsService.initializePosts()
   }
-
-  onAddClick() {
-    this.router.navigate(['/form'])
-  }
-
 }

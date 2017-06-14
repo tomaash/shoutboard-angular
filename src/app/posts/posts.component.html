@@ -1,4 +1,8 @@
-<button md-fab (click)="onAddClick()" class="float-right"><md-icon>add</md-icon></button>
+<a routerLink="/form" class="float-right">
+  <button md-fab>
+    <md-icon>add</md-icon>
+  </button>
+</a>
 <h3>Hello {{appService.username}}</h3>
 <md-card *ngFor="let msg of postsService.posts">
   <md-card-title>{{msg.title}}</md-card-title>
