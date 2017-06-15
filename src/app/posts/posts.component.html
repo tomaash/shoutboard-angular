@@ -4,12 +4,12 @@
   </button>
 </a>
 <h3>Hello {{appService.username}}</h3>
-<md-card *ngFor="let msg of postsService.posts">
-  <md-card-title>{{msg.title}}</md-card-title>
-  <md-card-subtitle>{{msg.name}}</md-card-subtitle>
+<md-card *ngFor="let post of postsService.posts">
+  <md-card-title>{{post.title}}</md-card-title>
+  <md-card-subtitle>{{post.name}}</md-card-subtitle>
   <md-card-content>
     <p>
-      {{msg.message}}
+      {{post.message}}
     </p>
   </md-card-content>
 </md-card>
