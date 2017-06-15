@@ -12,7 +12,7 @@ import { AppService } from '../app.service'
   ]
 })
 export class FormComponent {
-  form: FormGroup
+  postForm: FormGroup
   validationMessages = {
     'title': {
       'required': 'Title is required.',
@@ -37,9 +37,9 @@ export class FormComponent {
 
   get validationErrors() {
     const errors = {}
-    Object.keys(this.form.controls).forEach(key => {
+    Object.keys(this.postForm.controls).forEach(key => {
       errors[key] = ''
-      const control = this.form.controls[key]
+      const control = this.postForm.controls[key]
       if (control && !control.valid) {
         const messages = this.validationMessages[key]
         Object.keys(control.errors).forEach(error => {
@@ -51,7 +51,7 @@ export class FormComponent {
   }
 
   createForm() {
-    this.form = this.fb.group({
+    this.postForm = this.fb.group({
       title: ['',
         [Validators.required,
         Validators.minLength(4),
